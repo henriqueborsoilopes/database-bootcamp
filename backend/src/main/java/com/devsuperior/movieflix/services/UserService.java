@@ -7,16 +7,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.devsuperior.movieflix.dtos.UserDTO;
 import com.devsuperior.movieflix.entities.User;
+import com.devsuperior.movieflix.mapper.UserMapper;
 import com.devsuperior.movieflix.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 	
 	private final UserRepository userRepository;
-		
-	public UserService(UserRepository userRepository) {
+	private final UserMapper mapper;
+	private final AuthService authService;
+	
+	public UserService(UserRepository userRepository, UserMapper mapper, AuthService authService) {
 		this.userRepository = userRepository;
+		this.mapper = mapper;
+		this.authService = authService;
+	}
+	
+	public UserDTO getProfile() {
+		User entity = authService.authenticated();
+		return mapper.toDTO(entity);
 	}
 
 	@Override
