@@ -22,7 +22,7 @@ https://www.figma.com/file/6JQVnxKgKtVHLleSBBgRin/MovieFlix-front-listagem
 
 ### Modelo conceitual
 
-![mer](https://github.com/henriqueborsoilopes/database-bootcamp/assets/52636328/cda29ce4-e12f-4a0a-b557-fdb3fe307d28)
+![mer](https://github.com/henriqueborsoilopes/database-bootcamp/assets/52636328/aaaae36a-f2c0-4680-be5d-92c3d417692f)
 
 ### Casos de uso
 
