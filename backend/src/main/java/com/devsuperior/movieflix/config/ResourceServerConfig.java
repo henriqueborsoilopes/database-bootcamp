@@ -27,7 +27,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private final Environment env;
 	private final JwtTokenStore tokenStore;
 	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
-	private static final String[] VISITOR_OR_MEMBER = { "/users/**" };
+	private static final String[] VISITOR_OR_MEMBER = { "/users/**", "/genres/**"};
+	private static final String[] MEMBER = { "/reviews/**" };
 	
 	public ResourceServerConfig(Environment env, JwtTokenStore tokenStore) {
 		this.env = env;
@@ -48,6 +49,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
 		.antMatchers(VISITOR_OR_MEMBER).hasAnyRole("VISITOR", "MEMBER")
+		.antMatchers(MEMBER).hasRole("MEMBER")
 		.anyRequest().authenticated();
 		
 		http.cors().configurationSource(corsConfigurationSource());
