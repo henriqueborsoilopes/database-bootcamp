@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.devsuperior.movieflix.services.exceptions.ObjectNotFoundException;
 import com.devsuperior.movieflix.services.exceptions.UnauthorizedException;
 
 @ControllerAdvice
@@ -44,6 +45,19 @@ public class ControllerExceptionHandler {
 		for (FieldError error : e.getBindingResult().getFieldErrors()) {
 			err.addError(error.getField(), error.getDefaultMessage());
 		}
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<StandardError> validation(ObjectNotFoundException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Validation exception");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
 	}
