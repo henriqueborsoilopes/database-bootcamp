@@ -24,6 +24,8 @@ public class Movie implements Serializable {
 	private Long id;
 	private String title;
 	private String subTitle;
+	
+	@Column(columnDefinition = "text")
 	private String synopsis;
 
 	@Column(name = "int_year")
